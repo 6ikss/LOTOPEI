@@ -1,57 +1,32 @@
 import { motion } from 'framer-motion'
 import { TESTIMONIALS } from '../data/site.js'
-import { fadeUp, scaleIn, spotlight, stagger, viewport } from '../lib/motion.js'
-import { IconStar } from './Icons.jsx'
+import { fadeUp, stagger, viewport } from '../lib/motion.js'
 
 export default function Testimonials() {
   return (
     <section className="section" id="avis">
       <div className="container">
-        <motion.div
-          className="section__head"
-          variants={stagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-        >
-          <motion.span className="eyebrow" variants={fadeUp}>
-            Ils ont conduit la Model Y
-          </motion.span>
-          <motion.h2 className="section__title" variants={fadeUp}>
-            Des road-trips <span className="grad-text">inoubliables</span>
-          </motion.h2>
-        </motion.div>
+        <div className="shead">
+          <div>
+            <span className="overline">Ils ont conduit la Model Y</span>
+            <h2 className="display shead__title">
+              Des road-trips <span className="accent">inoubliables</span>
+            </h2>
+          </div>
+        </div>
 
         <motion.div
-          className="testimonials"
+          className="voices"
           variants={stagger}
           initial="hidden"
           whileInView="show"
           viewport={viewport}
         >
           {TESTIMONIALS.map((t) => (
-            <motion.figure
-              className="card testimonial"
-              key={t.name}
-              onMouseMove={spotlight}
-              variants={scaleIn}
-              whileHover={{ y: -8 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-            >
-              <div className="testimonial__stars" aria-label={`${t.rating} sur 5`}>
-                {Array.from({ length: t.rating }).map((_, i) => (
-                  <IconStar key={i} width={18} height={18} />
-                ))}
-              </div>
-              <blockquote className="testimonial__quote">“{t.quote}”</blockquote>
-              <figcaption className="testimonial__author">
-                <span className="testimonial__avatar" aria-hidden="true">
-                  {t.name.charAt(0)}
-                </span>
-                <span>
-                  <strong>{t.name}</strong>
-                  <span className="testimonial__city">{t.city}</span>
-                </span>
+            <motion.figure className="voice" key={t.name} variants={fadeUp}>
+              <blockquote className="voice__quote">« {t.quote} »</blockquote>
+              <figcaption className="voice__author">
+                <b>{t.name}</b> — {t.city}
               </figcaption>
             </motion.figure>
           ))}

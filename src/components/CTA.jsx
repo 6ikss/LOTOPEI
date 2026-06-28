@@ -1,31 +1,23 @@
 import { motion } from 'framer-motion'
 import { PLATFORMS } from '../data/site.js'
-import { fadeUp, scaleIn, spotlight, stagger, viewport } from '../lib/motion.js'
-import { IconArrow } from './Icons.jsx'
+import { fadeUp, stagger, viewport } from '../lib/motion.js'
 
 export default function CTA() {
   return (
-    <section className="section cta" id="reserver">
-      <div className="cta__glow" aria-hidden="true" />
+    <section className="section reserve" id="reserver">
       <div className="container">
-        <motion.div
-          className="section__head"
-          variants={stagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-        >
-          <motion.span className="eyebrow" variants={fadeUp}>
-            Réservez en 2 minutes
-          </motion.span>
-          <motion.h2 className="section__title" variants={fadeUp}>
-            Prêt à prendre le volant ?
-          </motion.h2>
-          <motion.p className="section__subtitle" variants={fadeUp}>
-            Choisissez votre plateforme préférée. La réservation, l’assurance et le paiement sont
-            gérés en toute sécurité directement sur le site partenaire.
-          </motion.p>
-        </motion.div>
+        <div className="shead">
+          <div>
+            <span className="overline">Réservation</span>
+            <h2 className="display reserve__title">
+              Prenez le <span className="accent">volant</span>
+            </h2>
+          </div>
+          <p className="lead shead__aside reserve__lead">
+            Choisissez votre plateforme. Réservation, assurance et paiement sécurisés,
+            directement chez notre partenaire.
+          </p>
+        </div>
 
         <motion.div
           className="platforms"
@@ -36,30 +28,18 @@ export default function CTA() {
         >
           {PLATFORMS.map((p) => (
             <motion.a
-              className="card platform"
+              className="platform"
               key={p.name}
               href={p.url}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Réserver sur ${p.name} (nouvel onglet)`}
-              style={{ '--card-accent': p.accent }}
-              onMouseMove={spotlight}
-              variants={scaleIn}
-              whileHover={{ y: -8 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+              variants={fadeUp}
             >
-              <span className="platform__top">
-                <span className="platform__logo">
-                  <img src={p.logo} alt={p.name} loading="lazy" width="120" height="24" />
-                </span>
-                <span className="platform__arrow">
-                  <IconArrow width={20} height={20} />
-                </span>
-              </span>
-              <span className="platform__tagline">{p.tagline}</span>
-              <span className="platform__foot">
-                <span className="platform__note">{p.note}</span>
-                <span className="platform__action">Réserver →</span>
+              <span className="platform__name">{p.name}</span>
+              <span className="platform__note">{p.tagline}</span>
+              <span className="platform__arrow" aria-hidden="true">
+                ↗
               </span>
             </motion.a>
           ))}

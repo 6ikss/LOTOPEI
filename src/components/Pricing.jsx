@@ -1,88 +1,58 @@
 import { motion } from 'framer-motion'
 import { PRICING } from '../data/site.js'
-import { fadeUp, scaleIn, spotlight, stagger, viewport } from '../lib/motion.js'
-import { IconCheck } from './Icons.jsx'
-
-// The featured tier rests slightly lifted. Driving the offset through Framer
-// (instead of a CSS transform) avoids the inline-transform overriding the lift.
-const featuredScaleIn = {
-  hidden: { opacity: 0, scale: 0.96, y: 16 },
-  show: {
-    opacity: 1,
-    scale: 1,
-    y: -10,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-  },
-}
+import { fadeUp, stagger, viewport } from '../lib/motion.js'
 
 export default function Pricing() {
   return (
-    <section className="section section--alt" id="tarifs">
+    <section className="section" id="tarifs">
       <div className="container">
-        <motion.div
-          className="section__head"
-          variants={stagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewport}
-        >
-          <motion.span className="eyebrow" variants={fadeUp}>
-            Tarifs
-          </motion.span>
-          <motion.h2 className="section__title" variants={fadeUp}>
-            Des formules <span className="grad-text">simples et transparentes</span>
-          </motion.h2>
-          <motion.p className="section__subtitle" variants={fadeUp}>
-            Plus vous roulez, plus le tarif est doux. Carburant ? Zéro. Il suffit de brancher.
-          </motion.p>
-        </motion.div>
+        <div className="shead">
+          <div>
+            <span className="overline">Tarifs</span>
+            <h2 className="display shead__title">
+              Des formules <span className="accent">épurées</span>
+            </h2>
+          </div>
+          <p className="lead shead__aside muted">
+            Plus vous roulez, plus le tarif s’adoucit. Carburant : aucun — il suffit de brancher.
+          </p>
+        </div>
 
         <motion.div
-          className="pricing"
+          className="tiers"
           variants={stagger}
           initial="hidden"
           whileInView="show"
           viewport={viewport}
         >
-          {PRICING.map((tier) => (
+          {PRICING.map((t) => (
             <motion.article
-              className={`card price${tier.highlight ? ' price--featured' : ''}`}
-              key={tier.name}
-              onMouseMove={spotlight}
-              variants={tier.highlight ? featuredScaleIn : scaleIn}
-              whileHover={{ y: tier.highlight ? -18 : -8 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+              className={`tier${t.highlight ? ' tier--featured' : ''}`}
+              key={t.name}
+              variants={fadeUp}
             >
-              {tier.badge && <span className="price__badge">{tier.badge}</span>}
-              <h3 className="price__name">{tier.name}</h3>
-              <p className="price__duration">{tier.duration}</p>
-
-              <p className="price__amount">
-                <span className="price__value">{tier.price}</span>
-                <span className="price__unit">{tier.unit}</span>
-              </p>
-
-              <ul className="price__list">
-                {tier.features.map((f) => (
-                  <li key={f}>
-                    <IconCheck width={18} height={18} />
-                    {f}
-                  </li>
+              <div className="tier__tag">{t.badge || ''}</div>
+              <div className="tier__name">{t.name}</div>
+              <div className="tier__duration">{t.duration}</div>
+              <div className="tier__price">
+                <span className="from">À partir de</span>
+                <b>{t.price}</b> <small>{t.unit}</small>
+              </div>
+              <ul className="tier__list">
+                {t.features.map((f) => (
+                  <li key={f}>{f}</li>
                 ))}
               </ul>
-
-              <a
-                className={`btn btn--lg ${tier.highlight ? 'btn--primary' : 'btn--ghost'}`}
-                href="#reserver"
-              >
-                {tier.cta}
+              <a className="link" href="#reserver">
+                {t.cta}
+                <span className="link__arrow">→</span>
               </a>
             </motion.article>
           ))}
         </motion.div>
 
-        <p className="pricing__note">
-          Prix indicatifs — la réservation et le paiement se font sur Roadstr, Getaround ou Zotcar.
+        <p className="tiers__note">
+          Prix indicatifs — réservation et paiement sur Roadstr, Getaround ou Zotcar.
         </p>
       </div>
     </section>

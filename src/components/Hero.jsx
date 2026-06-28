@@ -1,78 +1,97 @@
-import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { BRAND, STATS } from '../data/site.js'
-import { fadeUp, stagger } from '../lib/motion.js'
-import HeroScene from './HeroScene.jsx'
+import { fadeUp, stagger, viewport } from '../lib/motion.js'
+
+const EASE = [0.16, 1, 0.3, 1]
+const lineUp = (delay) => ({
+  initial: { y: '110%' },
+  animate: { y: '0%' },
+  transition: { duration: 0.95, delay, ease: EASE },
+  style: { display: 'block' },
+})
 
 export default function Hero() {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start'],
-  })
-
-  // parallax — l'image défile plus lentement et zoome légèrement
-  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '16%'])
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.12])
-  const sceneY = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
-  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 1.08])
-  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.8, 1])
-  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-12%'])
-
   return (
-    <section className="hero" id="top" ref={ref}>
-      <div className="hero__media" aria-hidden="true">
-        <motion.div className="hero__scene-wrap" style={{ y: sceneY, scale: sceneScale }}>
-          <HeroScene />
-        </motion.div>
-        <motion.div className="hero__img" style={{ y: imgY, scale: imgScale }} />
-        <motion.div className="hero__overlay" style={{ opacity: overlayOpacity }} />
-      </div>
+    <section className="hero" id="top">
+      <div className="container">
+        <div className="hero__inner">
+          <div className="hero__content">
+            <motion.span
+              className="overline hero__overline"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.1 }}
+            >
+              Location d’exception — La Réunion
+            </motion.span>
 
-      <motion.div
-        className="hero__content container"
-        style={{ y: contentY }}
-        variants={stagger}
-        initial="hidden"
-        animate="show"
-      >
-        <motion.span className="badge" variants={fadeUp}>
-          <span className="badge__dot" />
-          La Réunion · Tesla Model Y Long Range
-        </motion.span>
+            <h1 className="display hero__title">
+              <span className="line">
+                <motion.span {...lineUp(0.2)}>Conduisez l’île,</motion.span>
+              </span>
+              <span className="line">
+                <motion.span className="accent" {...lineUp(0.32)}>
+                  en silence.
+                </motion.span>
+              </span>
+            </h1>
 
-        <motion.h1 className="hero__title" variants={fadeUp}>
-          Conduisez une <span className="grad-text">Tesla Model Y</span>
-          <br />
-          au cœur de La Réunion
-        </motion.h1>
+            <motion.p
+              className="lead hero__lead"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.5, ease: EASE }}
+            >
+              {BRAND.subtitle}
+            </motion.p>
 
-        <motion.p className="hero__subtitle" variants={fadeUp}>
-          {BRAND.subtitle}
-        </motion.p>
+            <motion.div
+              className="hero__actions"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.64, ease: EASE }}
+            >
+              <a className="link" href="#reserver">
+                Réserver l’expérience
+                <span className="link__arrow">→</span>
+              </a>
+              <a className="link link--muted" href="#experience">
+                Découvrir le véhicule
+              </a>
+            </motion.div>
+          </div>
 
-        <motion.div className="hero__actions" variants={fadeUp}>
-          <a className="btn btn--primary btn--lg" href="#reserver">
-            Réserver maintenant
-          </a>
-          <a className="btn btn--ghost btn--lg" href="#tarifs">
-            Voir les tarifs
-          </a>
-        </motion.div>
+          <motion.div
+            className="hero__media"
+            initial={{ opacity: 0, scale: 1.03 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.3, delay: 0.3, ease: EASE }}
+          >
+            <div className="hero__photo" />
+            <span className="hero__media-frame" />
+            <span className="hero__media-label">Tesla Model Y Long Range</span>
+          </motion.div>
+        </div>
 
-        <motion.dl className="hero__stats" variants={fadeUp}>
+        <motion.div
+          className="specbar"
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+        >
           {STATS.map((s) => (
-            <div className="stat" key={s.label}>
-              <dt className="stat__value">{s.value}</dt>
-              <dd className="stat__label">{s.label}</dd>
-            </div>
+            <motion.div className="spec" key={s.label} variants={fadeUp}>
+              <div className="spec__value">{s.value}</div>
+              <div className="spec__label">{s.label}</div>
+            </motion.div>
           ))}
-        </motion.dl>
-      </motion.div>
-
-      <a className="hero__scroll" href="#experience" aria-label="Découvrir la suite">
-        <span className="hero__scroll-dot" />
-      </a>
+          <motion.div className="spec" variants={fadeUp}>
+            <div className="spec__value">5 places</div>
+            <div className="spec__label">tout confort</div>
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   )
 }
