@@ -115,23 +115,26 @@ export const TESTIMONIALS = [
 export const PLATFORMS = [
   {
     name: 'Roadstr',
+    logo: '/logos/roadstr.png',
     url: 'https://www.roadstr.fr/cars/tesla-model-y-lr-2025-saint-denis',
     tagline: 'La communauté des passionnés d’autos d’exception.',
     note: 'Saint-Denis',
-    accent: '#5b9bff',
+    accent: '#ff8a5b',
   },
   {
     name: 'Getaround',
+    logo: '/logos/getaround.png',
     url: 'https://fr.getaround.com/location-voiture/sainte-marie/tesla-model-y-long-range-1836699',
     tagline: 'Location entre particuliers, simple et sans contact.',
     note: 'Sainte-Marie',
-    accent: '#22d3ee',
+    accent: '#a05bff',
   },
   {
     name: 'Zotcar',
+    logo: '/logos/zotcar.png',
     url: 'https://www.zotcar.com/vehicle/48887',
     tagline: 'Le spécialiste de la location de voitures à La Réunion.',
     note: 'La Réunion',
-    accent: '#a78bfa',
+    accent: '#22d3ee',
   },
 ]

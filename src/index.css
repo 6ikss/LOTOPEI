@@ -18,15 +18,19 @@
   --text-dim: #868ca3;
 
   /* accent */
-  --accent: #5b9bff;
-  --accent-2: #22d3ee;
-  --accent-3: #a78bfa;
-  --grad: linear-gradient(120deg, #5b9bff, #22d3ee 48%, #a78bfa);
+  --accent: #ff8a5b; /* corail sunset (accent principal) */
+  --accent-2: #22d3ee; /* cyan électrique (contrepoint frais) */
+  --accent-3: #ffd27a; /* or */
+  --sun: #ffb86b;
+  --coral: #ff7a59;
+  --lagoon: #2dd4bf;
+  --grad: linear-gradient(115deg, #ffd27a, #ff7a59 50%, #ff6aa0);
+  --grad-cool: linear-gradient(120deg, #5b9bff, #22d3ee 50%, #a78bfa);
   --grad-soft: linear-gradient(
     120deg,
-    rgba(91, 155, 255, 0.16),
-    rgba(34, 211, 238, 0.12),
-    rgba(167, 139, 250, 0.16)
+    rgba(255, 184, 107, 0.16),
+    rgba(255, 122, 89, 0.12),
+    rgba(255, 106, 160, 0.16)
   );
 
   /* shape */
@@ -34,7 +38,7 @@
   --radius-lg: 26px;
   --radius-pill: 999px;
   --shadow: 0 30px 80px -40px rgba(0, 0, 0, 0.85);
-  --shadow-glow: 0 24px 70px -28px rgba(91, 155, 255, 0.55);
+  --shadow-glow: 0 24px 70px -28px rgba(255, 122, 89, 0.5);
   --maxw: 1140px;
 
   --font-display: 'Sora', system-ui, -apple-system, sans-serif;
@@ -70,8 +74,8 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(900px 600px at 50% -10%, rgba(91, 155, 255, 0.16), transparent 60%),
-    radial-gradient(700px 500px at 100% 0%, rgba(167, 139, 250, 0.12), transparent 55%);
+    radial-gradient(900px 600px at 50% -10%, rgba(255, 184, 107, 0.12), transparent 60%),
+    radial-gradient(700px 500px at 100% 0%, rgba(34, 211, 238, 0.1), transparent 55%);
 }
 
 #root {
@@ -450,7 +454,10 @@ svg {
 
 .hero {
   position: relative;
-  padding: clamp(130px, 18vh, 190px) 0 clamp(60px, 8vw, 90px);
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 140px 0 90px;
   overflow: hidden;
 }
 
@@ -1132,5 +1139,199 @@ svg {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================================
+   ÎLE PREMIUM — hero photo, golden-hour, grain, logos, section île
+   ========================================================================== */
+
+/* film grain — texture cinéma très subtile */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* HERO image plein cadre */
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  /* fallback golden-hour tant que la photo n'est pas déposée */
+  background:
+    radial-gradient(75% 60% at 72% 20%, rgba(255, 184, 107, 0.55), transparent 55%),
+    linear-gradient(180deg, #2a1c10 0%, #160d12 45%, #07070d 100%);
+}
+
+.hero__img {
+  position: absolute;
+  inset: -7% 0 -2%;
+  background-image: url("/hero-tesla.jpg");
+  background-size: cover;
+  background-position: center 42%;
+  will-change: transform;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(7, 7, 13, 0.12) 0%, rgba(7, 7, 13, 0.42) 50%, rgba(7, 7, 13, 0.96) 100%),
+    linear-gradient(90deg, rgba(7, 7, 13, 0.72) 0%, rgba(7, 7, 13, 0.15) 55%, transparent 100%);
+}
+
+.hero__sun {
+  position: absolute;
+  top: -8%;
+  right: 6%;
+  width: 460px;
+  height: 460px;
+  max-width: 62vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 209, 122, 0.5), rgba(255, 122, 89, 0.18) 42%, transparent 70%);
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.hero .hero__content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero__title,
+.hero__subtitle {
+  text-shadow: 0 2px 34px rgba(0, 0, 0, 0.55);
+}
+
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 42px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  padding-top: 7px;
+  z-index: 3;
+}
+
+.hero__scroll-dot {
+  width: 4px;
+  height: 8px;
+  border-radius: 2px;
+  background: #fff;
+  animation: scrolldot 1.8s ease-in-out infinite;
+}
+
+@keyframes scrolldot {
+  0% { opacity: 0; transform: translateY(-4px); }
+  45% { opacity: 1; }
+  85% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 0; }
+}
+
+/* platform logos on light pills */
+.platform__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 12px;
+  padding: 9px 16px;
+  min-height: 44px;
+  box-shadow: 0 8px 24px -14px rgba(0, 0, 0, 0.6);
+}
+
+.platform__logo img {
+  height: 24px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+}
+
+/* fallback texte si le logo n'est pas encore déposé (alt visible) */
+.platform__logo img[alt] {
+  color: #0b0d15;
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+/* ÎLE — bande d'ambiance volcan / coucher de soleil */
+.island {
+  position: relative;
+  padding: clamp(84px, 12vw, 160px) 0;
+  overflow: hidden;
+  background:
+    radial-gradient(95% 80% at 50% 118%, rgba(255, 122, 89, 0.24), transparent 60%),
+    linear-gradient(180deg, #0a0710, #130a14 55%, #07070d);
+}
+
+.island__scene {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 62%;
+  z-index: 0;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.island__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.island__spots {
+  margin-top: 38px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.spot {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 0.92rem;
+  color: var(--text);
+  backdrop-filter: blur(8px);
+}
+
+.spot__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--grad);
+  box-shadow: 0 0 10px 1px rgba(255, 122, 89, 0.7);
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 92svh;
+    padding: 120px 0 78px;
+  }
+  .hero__sun {
+    width: 320px;
+    height: 320px;
+  }
+  .island__scene {
+    height: 48%;
   }
 }

@@ -48,7 +48,9 @@ export default function CTA() {
               transition={{ type: 'spring', stiffness: 260, damping: 22 }}
             >
               <span className="platform__top">
-                <span className="platform__name">{p.name}</span>
+                <span className="platform__logo">
+                  <img src={p.logo} alt={p.name} loading="lazy" width="120" height="24" />
+                </span>
                 <span className="platform__arrow">
                   <IconArrow width={20} height={20} />
                 </span>
