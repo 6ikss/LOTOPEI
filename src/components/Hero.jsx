@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { BRAND, STATS } from '../data/site.js'
 import { fadeUp, stagger } from '../lib/motion.js'
+import HeroScene from './HeroScene.jsx'
 
 export default function Hero() {
   const ref = useRef(null)
@@ -13,15 +14,19 @@ export default function Hero() {
   // parallax — l'image défile plus lentement et zoome légèrement
   const imgY = useTransform(scrollYProgress, [0, 1], ['0%', '16%'])
   const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.12])
+  const sceneY = useTransform(scrollYProgress, [0, 1], ['0%', '10%'])
+  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 1.08])
   const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.8, 1])
   const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-12%'])
 
   return (
     <section className="hero" id="top" ref={ref}>
       <div className="hero__media" aria-hidden="true">
+        <motion.div className="hero__scene-wrap" style={{ y: sceneY, scale: sceneScale }}>
+          <HeroScene />
+        </motion.div>
         <motion.div className="hero__img" style={{ y: imgY, scale: imgScale }} />
         <motion.div className="hero__overlay" style={{ opacity: overlayOpacity }} />
-        <span className="hero__sun" />
       </div>
 
       <motion.div

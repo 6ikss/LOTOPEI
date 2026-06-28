@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { PRICING } from '../data/site.js'
-import { fadeUp, scaleIn, stagger, viewport } from '../lib/motion.js'
+import { fadeUp, scaleIn, spotlight, stagger, viewport } from '../lib/motion.js'
 import { IconCheck } from './Icons.jsx'
 
 // The featured tier rests slightly lifted. Driving the offset through Framer
@@ -48,6 +48,7 @@ export default function Pricing() {
             <motion.article
               className={`card price${tier.highlight ? ' price--featured' : ''}`}
               key={tier.name}
+              onMouseMove={spotlight}
               variants={tier.highlight ? featuredScaleIn : scaleIn}
               whileHover={{ y: tier.highlight ? -18 : -8 }}
               transition={{ type: 'spring', stiffness: 260, damping: 22 }}

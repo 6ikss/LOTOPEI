@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { TESTIMONIALS } from '../data/site.js'
-import { fadeUp, scaleIn, stagger, viewport } from '../lib/motion.js'
+import { fadeUp, scaleIn, spotlight, stagger, viewport } from '../lib/motion.js'
 import { IconStar } from './Icons.jsx'
 
 export default function Testimonials() {
@@ -33,6 +33,7 @@ export default function Testimonials() {
             <motion.figure
               className="card testimonial"
               key={t.name}
+              onMouseMove={spotlight}
               variants={scaleIn}
               whileHover={{ y: -8 }}
               transition={{ type: 'spring', stiffness: 260, damping: 22 }}

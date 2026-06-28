@@ -36,3 +36,12 @@ export const stagger = {
 
 // Reusable whileInView viewport config — reveal once, slightly before fully in view.
 export const viewport = { once: true, margin: '-80px' }
+
+// Cursor-follow spotlight: place on a card's onMouseMove to light a soft glow
+// under the pointer (reads via the --mx/--my CSS vars in index.css).
+export function spotlight(e) {
+  const el = e.currentTarget
+  const r = el.getBoundingClientRect()
+  el.style.setProperty('--mx', `${e.clientX - r.left}px`)
+  el.style.setProperty('--my', `${e.clientY - r.top}px`)
+}

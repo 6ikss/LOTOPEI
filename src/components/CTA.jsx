@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { PLATFORMS } from '../data/site.js'
-import { fadeUp, scaleIn, stagger, viewport } from '../lib/motion.js'
+import { fadeUp, scaleIn, spotlight, stagger, viewport } from '../lib/motion.js'
 import { IconArrow } from './Icons.jsx'
 
 export default function CTA() {
@@ -43,6 +43,7 @@ export default function CTA() {
               rel="noopener noreferrer"
               aria-label={`Réserver sur ${p.name} (nouvel onglet)`}
               style={{ '--card-accent': p.accent }}
+              onMouseMove={spotlight}
               variants={scaleIn}
               whileHover={{ y: -8 }}
               transition={{ type: 'spring', stiffness: 260, damping: 22 }}

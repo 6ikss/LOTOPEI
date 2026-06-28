@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { FEATURES } from '../data/site.js'
-import { fadeUp, scaleIn, stagger, viewport } from '../lib/motion.js'
+import { fadeUp, scaleIn, spotlight, stagger, viewport } from '../lib/motion.js'
 import { ICONS } from './Icons.jsx'
 
 export default function Features() {
@@ -39,6 +39,7 @@ export default function Features() {
               <motion.article
                 className="card feature"
                 key={f.title}
+                onMouseMove={spotlight}
                 variants={scaleIn}
                 whileHover={{ y: -8 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 22 }}
