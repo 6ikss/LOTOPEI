@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Une fois en ligne, décommente et adapte :
+# Sitemap: https://VOTRE-DOMAINE.com/sitemap.xml
