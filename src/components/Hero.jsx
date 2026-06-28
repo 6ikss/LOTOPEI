@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { BRAND, STATS } from '../data/site.js'
-import { fadeUp, stagger, viewport } from '../lib/motion.js'
+import { fadeUp, stagger, viewport, magnetize, demagnetize } from '../lib/motion.js'
 
 const EASE = [0.16, 1, 0.3, 1]
 const lineUp = (delay) => ({
@@ -51,7 +51,12 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.64, ease: EASE }}
             >
-              <a className="link" href="#reserver">
+              <a
+                className="link magnetic"
+                href="#reserver"
+                onMouseMove={magnetize}
+                onMouseLeave={demagnetize}
+              >
                 Réserver l’expérience
                 <span className="link__arrow">→</span>
               </a>

@@ -19,3 +19,15 @@ export const stagger = {
 }
 
 export const viewport = { once: true, margin: '-60px' }
+
+// Bouton magnétique : l'élément glisse légèrement vers le curseur.
+export function magnetize(e) {
+  const el = e.currentTarget
+  const r = el.getBoundingClientRect()
+  const mx = (e.clientX - (r.left + r.width / 2)) * 0.32
+  const my = (e.clientY - (r.top + r.height / 2)) * 0.5
+  el.style.transform = `translate(${mx}px, ${my}px)`
+}
+export function demagnetize(e) {
+  e.currentTarget.style.transform = ''
+}
